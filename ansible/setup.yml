@@ -1,0 +1,17 @@
+---
+- name: Configure integration environment
+  hosts: integration_servers
+  gather_facts: false
+
+  tasks:
+    - name: Create application log directory
+      ansible.builtin.file:
+        path: /project/data/integration-logs
+        state: directory
+        mode: "0755"
+
+    - name: Create integration status file
+      ansible.builtin.copy:
+        content: "Integration environment configured successfully\n"
+        dest: /project/data/integration-logs/status.txt
+        mode: "0644"
